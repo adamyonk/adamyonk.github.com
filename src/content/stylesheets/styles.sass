@@ -1,47 +1,73 @@
 @import url(http://fonts.googleapis.com/css?family=Cardo:400,400italic)
 
 @import compass/reset
+@import compass/css3/transform
 
-$text-color: hsl(0,0%,13%)
 $link-hover-color: hsla(0,0%,0%,.3)
 
+$orange: hsl(18,80%,44%)
+$yellow: hsl(45,100%,35%)
+$green: hsl(68,100%,30%)
+$white: hsl(44,87%,94%)
+$cyan: hsl(175,59%,40%)
+$black: hsl(192,100%,11%)
+$grey: hsl(180,7%,60%)
+
 body
-  color: $text-color
+  background-color: $white
+  color: $black
   font:
     family: 'Bitter', 'Georgia', serif
     size: 16px
 
-.wrapper
+#wrapper
   margin: 100px auto 0px
-  padding-left: 200px
   position: relative
   width: 500px
 
 $logo-size: 200px
+header
+  margin:
+    left: -$logo-size
+    top: 30px
+  padding-top: $logo-size
+  position: absolute
 #adam, #olivia
   color: hsl(18,80%,44%)
   font-size: $logo-size
   left: 0px
-  margin-top: -$logo-size/2
   position: absolute
   text-align: center
-  top: 50%
+  top: 0px
+  width: 150px
 #olivia
-  color: hsl(0,0%,0%)
-  display: none
-  font-family: 'Arial', serif
+  color: hsl(0,0%,13%)
+  font:
+    family: 'Arial', serif
+    size: $logo-size*1.25
   left: 0px
-  top: 50%
+  +rotate(15deg)
+  top: -10px
 
-p
+section
   line-height: 150%
+
+article
+  margin-bottom: 50px
+  *
+    max-width: 100%
+
+p, ul, ol, dl
   margin-bottom: 20px
+
+small
+  font-size: .8em
 
 a
   border-bottom: 1px solid $link-hover-color
-  color: $text-color
+  color: $black
   font-style: italic
   text-decoration: none
   &:hover
-    border-color: $text-color
+    border-color: $black
     color: $link-hover-color
