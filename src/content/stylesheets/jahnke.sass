@@ -68,10 +68,8 @@ header
       font:
         size: 1em
   nav
-    div,
     a
       display: inline-block
-    a
       font-style: normal
       margin: 0px 20px 0px 0px
 
@@ -80,7 +78,6 @@ section
 
 article
   +clearfix
-  //border-top: 1px solid $base1
   padding: 50px 0px
   img
     max-width: 100%
@@ -90,21 +87,6 @@ article
     img
       display: block
       margin-bottom: 5px
-  //&:after,
-  //&:before
-  //  +box-shadow(hsla(0,0%,0%,.3) 0px 8px 16px)
-  //  bottom: 10px
-  //  content: ''
-  //  height: 100px
-  //  left: 10px
-  //  position: absolute
-  //  +transform(rotate(-3deg) skew(-15deg))
-  //  width: 400px
-  //  z-index: -1
-  //&:after
-  //  left: auto
-  //  right: 10px
-  //  +transform(rotate(3deg) skew(15deg))
 
 h2
   font:
@@ -120,7 +102,11 @@ small
   font-size: .8em
 
 blockquote
-  font-size: 1.2em
+  border-left: 3px solid $yellow
+  font-size: 1.5em
+  line-height: 1.5em
+  margin-bottom: 0.5em
+  padding-left: 1em
 
 em
   font-style: italic
@@ -136,3 +122,4 @@ a
   &:hover
     border-color: $link-color
     color: $link-color
+
