@@ -2,6 +2,16 @@
 
 @import compass/reset
 @import compass/css3/transform
+@import compass/css3/border-radius
+
+=clearfix
+  *zoom: 1
+  &:before,
+  &:after
+    content: ''
+    display: table
+  &:after
+    clear: both
 
 $link-hover-color: hsla(192,100%,11%,.3)
 
@@ -21,25 +31,34 @@ body
     size: 16px
 
 #wrapper
-  margin: 100px auto 0px
+  line-height: 150%
+  margin: 100px auto
   position: relative
   width: 500px
 
 $logo-size: 200px
-header
+header.main
+  +clearfix
   margin:
+    bottom: 0px
     left: -$logo-size
-    top: 30px
+    right: 0px
+    top: 130px
   padding-top: $logo-size
   position: absolute
-#adam, #olivia
-  color: hsl(18,80%,44%)
-  font-size: $logo-size
-  left: 0px
-  position: absolute
-  text-align: center
-  top: 0px
-  width: 150px
+  h1
+    color: hsl(18,80%,44%)
+    font-size: $logo-size
+    left: 0px
+    position: absolute
+    text-align: center
+    top: 0px
+    width: 150px
+    a
+      border: none
+      color: $orange
+      font-style: normal
+      text-decoration: none
 #olivia
   color: hsl(0,0%,13%)
   font:
@@ -50,18 +69,58 @@ header
   top: -10px
 
 section
-  line-height: 150%
+
+header
+  margin-bottom: 20px
 
 article
+  +clearfix
+  display: block
   margin-bottom: 50px
   *
     max-width: 100%
 
-p, ul, ol, dl
+h2
+  font-size: 30px
+
+p, ul, ol, dl, table
   margin-bottom: 20px
+
+ul
+  list-style-type: disc
+
+ol
+  list-style-type: decimal
 
 small
   font-size: .8em
+
+blockquote
+  border-left: 3px solid $yellow
+  font-size: 1.5em
+  line-height: 1.5em
+  margin-bottom: 0.5em
+  padding-left: 1em
+
+em
+  font-style: italic
+
+strong
+  font-weight: bold
+
+code
+  +border-radius(3px)
+  background: hsla(0,0%,0%,.1)
+  display: inline-block
+  font:
+    family: Menlo, Monoco, monospace
+    size: .9em
+  line-height: 150%
+  overflow: scroll
+  padding: 0px 3px
+  white-space: pre
+  &.bloc
+    display: block
 
 a
   border-bottom: 1px solid $link-hover-color
@@ -71,3 +130,9 @@ a
   &:hover
     border-color: $black
     color: $link-hover-color
+
+.float-right
+  float: right
+
+.float-left
+  float: left

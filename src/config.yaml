@@ -1,5 +1,6 @@
+base_url: http://adamyonk.com
 # A list of file extensions that nanoc will consider to be textual rather than
-# binary. If an item with an extension not in this list is found,  the file
+# binary. If an item with an extension not in this list is found, the file
 # will be considered as binary.
 text_extensions: [ 'css', 'erb', 'haml', 'htm', 'html', 'js', 'less', 'markdown', 'md', 'php', 'rb', 'sass', 'scss', 'txt', 'xhtml', 'xml', 'coffee' ]
 
