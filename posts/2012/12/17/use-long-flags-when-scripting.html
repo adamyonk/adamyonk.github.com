@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='chrome=1' http-equiv='X-UA-Compatible'>
+    <title>Use long flags when scripting - Adam Jahnke</title>
+    <link href='/stylesheets/styles.css' rel='stylesheet'>
+    <!--[if lt IE 9]>
+      <script src='//html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id='wrapper'>
+      <header class='main'>
+        <h1><a href="/">✖</a></h1>
+      </header>
+      <section>
+        <header>
+  <h2>Use long flags when scripting</h2>
+  <small>
+    <time datetime='2012-12-17 10:32:59 -0600'>Posted December 17, 2012</time>
+    under <em>command line</em>, <em>programming</em>
+  </small>
+</header>
+<article>
+  <p>I peruse a fair amount of dotfile repos, and keep seeing people use short
+flags for things like aliases and inside little command line tools. Short
+flags are a command line shortcut, and they do belong there, but if you're not
+writing the command in a prompt, do yourself (and anyone else that may someday
+be reading your code) a favor and be more verbose, because this:</p>
+
+<p><code>curl --silent checkip.dyndns.org \&#x000A;| grep --extended-regexp --only-matching '[0-9\.]+'</code></p>
+
+<p>is a lot easier for a human to understand than this:</p>
+
+<p><code>curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'</code></p>
+</article>
+<a href='/posts/'>&laquo; Back to all posts</a>
+      </section>
+    </div>
+  </body>
+</html>

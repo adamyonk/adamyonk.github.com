@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://adamyonk.com/</id>
+  <title>adamyonk.com Syndication</title>
+  <updated>2012-12-17T16:32:59Z</updated>
+  <link rel="alternate" href="http://adamyonk.com/"/>
+  <link rel="self" href="http://adamyonk.com/posts/feed.xml"/>
+  <author>
+    <name>Adam Jahnke</name>
+    <uri>http://adamyonk.com</uri>
+  </author>
+  <entry>
+    <id>tag:adamyonk.com,2012-12-17:/posts/2012/12/17/use-long-flags-when-scripting.html</id>
+    <title type="html">Use long flags when scripting</title>
+    <published>2012-12-17T16:32:59Z</published>
+    <updated>2012-12-17T16:32:59Z</updated>
+    <link rel="alternate" href="http://adamyonk.com/posts/2012/12/17/use-long-flags-when-scripting.html"/>
+    <content type="html">&lt;p&gt;I peruse a fair amount of dotfile repos, and keep seeing people use short
+flags for things like aliases and inside little command line tools. Short
+flags are a command line shortcut, and they do belong there, but if you're not
+writing the command in a prompt, do yourself (and anyone else that may someday
+be reading your code) a favor and be more verbose, because this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;curl --silent checkip.dyndns.org \&amp;#x000A;| grep --extended-regexp --only-matching '[0-9\.]+'&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;is a lot easier for a human to understand than this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'&lt;/code&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:adamyonk.com,2012-12-06:/posts/2012/12/06/sir-jony-ive.html</id>
+    <title type="html">Sir Jony Ive</title>
+    <published>2012-12-06T19:39:39Z</published>
+    <updated>2012-12-06T19:39:39Z</updated>
+    <link rel="alternate" href="http://adamyonk.com/posts/2012/12/06/sir-jony-ive.html"/>
+    <content type="html">&lt;p&gt;Tim Cook on Sir Jony Ive in a &lt;a href="http://rockcenter.nbcnews.com/_news/2012/12/06/15708290-apple-ceo-tim-cook-announces-plans-to-manufacture-mac-computers-in-usa" title="Read the interview on rockcenter.nbcnews.com"&gt;Rock Center interview&lt;/a&gt; with Brian Williams:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Jony [Ive, senior vice president of industrial design], who I think has
+the best taste of anyone in the world and the best design skills, now has
+responsibility for the human interface. I mean, look at our products. (Cook
+reaches for his iPhone.) The face of this is the software, right? And the
+face of this iPad is the software. So it’s saying, Jony has done a remarkable
+job leading our hardware design, so let’s also have Jony responsible for the
+software and the look and feel of the software, not the underlying
+architecture and so forth, but the look and feel. I don’t think there’s
+anybody in the world that has a better taste than he does. So I think he’s
+very special. He’s an original.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;What an incredible reputation to have.&lt;/p&gt;
+</content>
+  </entry>
+</feed>
