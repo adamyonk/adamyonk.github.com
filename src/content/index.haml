@@ -3,18 +3,11 @@ title: adamyonk
 ---
 
 :markdown
-  I'm Adam Jahnke - a developer with [PureCharity][purecharity]. I love
-  minimalism. I have a passion for writing clean, concise code and currently
-  enjoy writing it in the flavors CoffeeScript and Ruby.
+  I'm Adam Jahnke – a programmer at [PureCharity][purecharity]. I have a
+  passion for writing code, especially CoffeeScript and Ruby.  I live in
+  Springfield, Missouri with my beautiful wife [Olivia][olivia].
 
-  I talk about some pretty nerdy things on occasion, but if that doesn't scare
-  you, I frequent [Twitter][twitter] quite often and write about code and tech
-  related things on a [blog][posts]. If you like [code][github], I'll be your
-  huckleberry.
-
-  I was born, raised, and fed corn in Nebraska. I'm now married and living in
-  Springfield, Missouri with my beautiful wife [Olivia][olivia]. We write on a
-  [blog][blog] together.
+  I love minimalism.
 
   [purecharity]: http://purecharity.com
   [twitter]: http://twitter.com/adamyonk
@@ -22,3 +15,8 @@ title: adamyonk
   [olivia]: http://twitter.com/oliviayonk
   [posts]: /posts/
   [blog]: http://jahnke.us
+
+Recent posts:
+%ul
+  - sorted_articles[0..4].each do |article|
+    %li #{link_to article[:title], article}

@@ -1,6 +1,7 @@
-http_path    = '/'
-project_path = '.'
 css_dir      = '../stylesheets'
-sass_dir     = 'content/stylesheets'
-images_dir   = '..images'
+fonts_dir    = '../fonts'
+http_path    = '/'
+images_dir   = '../images'
 output_style = :compressed
+project_path = '.'
+sass_dir     = 'content/stylesheets'
