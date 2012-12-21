@@ -24,24 +24,21 @@ $black: hsl(192,100%,11%)
 $grey: hsl(180,7%,60%)
 $tumblr: hsl(210,38%,30%)
 $twitter: hsl(192,98%,57%)
-$github: hsl(0,0%,0%)
+$github: hsl(196,74%,77%)//hsl(0,0%,0%)
 $rss: hsl(30,98%,57%)
 
 // Perfect fourth
 $scale: 1.333
 $base: 1rem
 @function scale($n)
-  @if $n == null
-    @return $base
-  @else
-    @return $base * pow($scale, $n)
+  @return $base * pow($scale, $n)
 
 body
   background-color: $white
   color: $black
   font:
     family: 'Bitter', 'Georgia', serif
-    size: scale
+    size: scale(0)
   line-height: 150%
 
 #wrapper
@@ -112,8 +109,8 @@ blockquote
   border-left: 3px solid $yellow
   font-size: scale(1)
   line-height: 150%
-  margin-bottom: scale
-  padding-left: scale
+  margin-bottom: scale(0)
+  padding-left: scale(0)
 
 em
   font-style: italic
