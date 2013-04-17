@@ -19,37 +19,41 @@ $base: 1rem
   @return $base * pow($scale, $n)
 
 // Colors
-$orange:      hsl(18,80%,44%)
-$yellow:      hsl(45,100%,35%)
-$green:       hsl(68,100%,30%)
-$white:       hsl(44,87%,94%)
-$cyan:        hsl(175,59%,40%)
-$black:       hsl(192,100%,11%)
-$grey:        hsl(180,7%,60%)
-$light-grey:  hsla(192,100%,11%,.3)
+$base03:      #002b36
+$base02:      #073642
+$base01:      #586e75
+$base00:      #657b83
+$base0:       #839496
+$base1:       #93a1a1
+$base2:       #eee8d5
+$base3:       #fdf6e3
+$yellow:      #b58900
+$orange:      #cb4b16
+$red:         #dc322f
+$magenta:     #d33682
+$violet:      #6c71c4
+$blue:        #268bd2
+$cyan:        #2aa198
+$green:       #859900
 
 $tumblr:      hsl(210,38%,30%)
 $twitter:     hsl(192,98%,57%)
-$github:      hsl(196,74%,77%)
+$github:      hsl(210,53%,51%)
 $rss:         hsl(30,98%,57%)
 
 body
-  background-color: $white
-  color: $black
+  background-color: $base3
+  color: $base00
   font-family: 'Georgia', serif
   font-size: scale(0)
   line-height: 150%
-
-#wrapper
-  margin: 0px auto 50px
+  margin: scale(2) auto
   max-width: scale(13)
-  position: relative
   width: 90%
 
-#top
+nav
   +clearfix
   margin: scale(2) 0px
-  //text-align: center
   a
     border: none
     display: inline-block
@@ -62,7 +66,8 @@ body
   a.main
     color: $orange
     font-size: scale(2)
-  .connections a:hover
+  a:hover
+    border: none
     &.ss-twitter
       color: $twitter
     &.ss-tumblr
@@ -71,29 +76,6 @@ body
       color: $github
     &.ss-rss
       color: $rss
-
-header.main
-  +clearfix
-  margin: scale(4) 0px
-  text-align: center
-  .title
-    position: relative
-  h1
-    font-family: 'Gill Sans', sans-serif
-    font-size: scale(7)
-    line-height: 100%
-    a, a:hover
-      border: none
-      color: $orange
-      font-style: normal
-      text-decoration: none
-    small
-      font-size: 1rem
-  nav
-    a
-      display: inline-block
-      font-style: normal
-      margin: 0px scale(-2)
 
 header
   margin-bottom: scale(1)
@@ -112,10 +94,11 @@ article
       margin-bottom: scale(-4)
 
 h1
+  color: $base00
   font-size: scale(2)
 
 h2
-  font-family: 'Gill Sans', sans-serif
+  color: $base00
   font-size: scale(1)
 
 h1, h2, ul, ol, dl, table, blockquote, code
@@ -152,7 +135,8 @@ strong
 
 code
   +border-radius(scale(-6))
-  background: hsla(0,0%,0%,.1)
+  background: $base2
+  color: $base01
   display: inline-block
   font-family: Menlo, Monoco, monospace
   font-size: .9rem
@@ -160,39 +144,13 @@ code
   overflow: scroll
   padding: 0px scale(-6)
   white-space: pre
-  &.bloc
+  &.block
     display: block
 
 a
-  border-bottom: scale(-9) solid $light-grey
-  color: $black
+  border-bottom: scale(-9) dotted $base1
+  color: $base01
   font-style: italic
   text-decoration: none
   &:hover
-    border-color: $black
-    color: $light-grey
-
-// For tumblr
-.pagination
-  .previous
-    float: left
-  .next
-    float: right
-
-ol.notes
-  display: none
-  li
-    clear: left
-    float: left
-    font-size: scale(-1)
-    line-height: 1rem
-    margin-bottom: scale(-4)
-    > a
-      float: left
-  .action
-    float: left
-    margin-left: scale(-4)
-  a
-    border: none
-  img
-    margin: 0px
+    border-style: solid

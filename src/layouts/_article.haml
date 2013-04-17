@@ -1,10 +1,10 @@
-%header
-  %h1 #{item[:title]}
-  %small
-    %time{datetime: item[:created_at]} Posted #{item[:created_at].strftime '%B %d, %Y'}
-    under #{item[:tags].sort.map { |tag| "<em>#{tag}</em>" }.join ', '}
+%article{class: item[:class]}
+  %header
+    %h1 #{item[:title]}
+    %small
+      %time{datetime: item[:created_at]} Posted #{item[:created_at].strftime '%B %d, %Y'}
+      under #{item[:tags].sort.map { |tag| "<em>#{tag}</em>" }.join ', '}
 
-%article
   = content
 
 %a{href: '/posts/'} &laquo; Back to all posts
