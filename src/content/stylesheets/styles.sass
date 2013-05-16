@@ -15,7 +15,8 @@
 // Perfect fourth
 $scale: 1.333
 $base: 1rem
-@function scale($n)
+// Scale
+@function s($n)
   @return $base * pow($scale, $n)
 
 // Colors
@@ -45,27 +46,27 @@ body
   background-color: $base3
   color: $base00
   font-family: 'Georgia', serif
-  font-size: scale(0)
+  font-size: s(0)
   line-height: 150%
-  margin: scale(2) auto
-  max-width: scale(13)
+  margin: s(2) auto
+  max-width: s(13)
   width: 90%
 
 nav
   +clearfix
-  margin: scale(2) 0px
+  margin: s(2) 0px
   a
     border: none
     display: inline-block
-    font-size: scale(1)
+    font-size: s(1)
     font-style: normal
-    height: scale(1)
-    line-height: scale(1)
+    height: s(1)
+    line-height: s(1)
     text-decoration: none
-    width: scale(1)
+    width: s(1)
   a.main
     color: $orange
-    font-size: scale(2)
+    font-size: s(2)
   a:hover
     border: none
     &.ss-twitter
@@ -78,12 +79,12 @@ nav
       color: $rss
 
 header
-  margin-bottom: scale(1)
+  margin-bottom: s(1)
 
 article
   +clearfix
   display: block
-  margin-bottom: scale(3)
+  margin-bottom: s(3)
   *
     max-width: 100%
   &.photo
@@ -91,26 +92,22 @@ article
       border: none
     img
       display: block
-      margin-bottom: scale(-4)
+      margin-bottom: s(-4)
 
 h1
   color: $base00
-  font-size: scale(2)
+  font-size: s(2)
 
 h2
   color: $base00
-  font-size: scale(1)
+  font-size: s(1)
 
-h1, h2, ul, ol, dl, table, blockquote, code
-  margin-top: scale(1)
-  + p, + small
-    margin-top: scale(1)
-
-p + p
-  text-indent: scale(1)
+article >
+  p, h1, h2, ul, ol, dl, table, blockquote, code
+    margin-bottom: s(1)
 
 ul, ol
-  margin-left: scale(1)
+  margin-left: s(1)
 
 ul
   list-style-type: disc
@@ -119,13 +116,13 @@ ol
   list-style-type: decimal
 
 small
-  font-size: scale(-1)
+  font-size: s(-1)
 
 blockquote
-  border-left: scale(-6) solid $yellow
-  font-size: scale(1)
+  border-left: s(-6) solid $yellow
+  font-size: s(1)
   line-height: 150%
-  padding-left: scale(0)
+  padding-left: s(0)
 
 em
   font-style: italic
@@ -134,7 +131,7 @@ strong
   font-weight: bold
 
 code
-  +border-radius(scale(-6))
+  +border-radius(s(-6))
   background: $base2
   color: $base01
   display: inline-block
@@ -142,13 +139,23 @@ code
   font-size: .9rem
   line-height: 150%
   overflow: scroll
-  padding: 0px scale(-6)
+  padding: 0px s(-6)
+  vertical-align: middle
   white-space: pre
   &.block
     display: block
 
+.gist
+  font-size: .75em
+  table
+    margin: 0px
+  .gist-meta
+    line-height: 15px
+    a:nth-child(2)
+      font-weight: bold
+
 a
-  border-bottom: scale(-9) dotted $base1
+  border-bottom: s(-9) dotted $base1
   color: $base01
   font-style: italic
   text-decoration: none
