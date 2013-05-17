@@ -1,4 +1,4 @@
-Crashlog created at 2013-05-16 13:18:37 -0500
+Crashlog created at 2013-05-17 14:56:36 -0500
 
 === MESSAGE:
 
@@ -68,13 +68,13 @@ Darwin air.local 12.3.0 Darwin Kernel Version 12.3.0: Sun Jan  6 22:37:10 PST 20
 
 === ENVIRONMENT:
 
-Apple_PubSub_Socket_Render => "/tmp/launch-hGJZUS/Render"
-Apple_Ubiquity_Message => "/tmp/launch-uFMccJ/Apple_Ubiquity_Message"
+Apple_PubSub_Socket_Render => "/tmp/launch-hHUhC7/Render"
+Apple_Ubiquity_Message => "/tmp/launch-GsdUTs/Apple_Ubiquity_Message"
 BROWSER => "open"
 BUNDLE_BIN_PATH => "/Users/adamyonk/.gem/ruby/1.9.3/gems/bundler-1.3.5/bin/bundle"
 BUNDLE_GEMFILE => "/Users/adamyonk/.code/adamyonk/adamyonk/src/Gemfile"
 COMMAND_MODE => "unix2003"
-DISPLAY => "/tmp/launch-PpVPLZ/org.macosforge.xquartz:0"
+DISPLAY => "/tmp/launch-HpkzN3/org.macosforge.xquartz:0"
 DNSIMPLE_DOMAIN_ID => "adamyonk.com"
 DNSIMPLE_LOGIN => "adamyonk@me.com"
 DNSIMPLE_PASSWORD => "j@hnk3"
@@ -112,14 +112,15 @@ RUBY_HEAP_SLOTS_GROWTH_FACTOR => "1"
 RUBY_HEAP_SLOTS_INCREMENT => "1000000"
 RUBY_ROOT => "/Users/adamyonk/.rubies/1.9.3"
 RUBY_VERSION => "1.9.3"
+SECURITYSESSIONID => "186a5"
 SHELL => "/bin/bash"
 SHLVL => "4"
-SSH_AUTH_SOCK => "/tmp/launch-VhMslz/Listeners"
+SSH_AUTH_SOCK => "/tmp/launch-KIE6mT/Listeners"
 TERM => "screen-256color"
 TERM_PROGRAM => "iTerm.app"
 TMPDIR => "/var/folders/36/11twtbzs115_w9t_fkq1gvww0000gn/T/"
-TMUX => "/private/var/folders/36/11twtbzs115_w9t_fkq1gvww0000gn/T/tmux-501/default,2092,4"
-TMUX_PANE => "%27"
+TMUX => "/private/var/folders/36/11twtbzs115_w9t_fkq1gvww0000gn/T/tmux-501/default,541,1"
+TMUX_PANE => "%7"
 USER => "adamyonk"
 VIM => "mvim -v"
 _ => "/Users/adamyonk/.gem/ruby/1.9.3/bin/nanoc"
