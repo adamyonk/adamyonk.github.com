@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cd src && nanoc autocompile -p 3002 -H puma
