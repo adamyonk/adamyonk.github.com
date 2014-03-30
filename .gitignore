@@ -1,6 +1,0 @@
-.DS_Store
-src/tmp/**
-src/crash.log
-.sass-cache
-.ruby-version
-.tmux
