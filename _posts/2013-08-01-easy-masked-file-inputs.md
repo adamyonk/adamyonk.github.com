@@ -2,7 +2,7 @@
 layout: post
 title: "Masked file inputs"
 date: 2013-08-01 11:13:31 -0500
-categories: javascript
+tags: javascript
 ---
 
 I put together a pretty simple solution for masking yet another native HTML input that behaves just fine on its own. The lengths we'll go to for our designers...
