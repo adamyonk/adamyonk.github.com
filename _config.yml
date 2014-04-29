@@ -1,4 +1,5 @@
+baseurl: http://adamyonk.com
+exclude: [ 'CNAME', 'Gemfile', 'Gemfile.lock', 'script' ]
+highlighter: true
 markdown: redcarpet
-pygments: true
 title: Adam Jahnke
-url: http://adamyonk.com
