@@ -1,0 +1,77 @@
+==================================================================
+https://keybase.io/adamyonk
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://adamyonk.com
+  * I am adamyonk (https://keybase.io/adamyonk) on keybase.
+  * I have a public key with fingerprint 253B DC3C 94E5 F33A 0A20  F0B3 415C 1FDC 7AEB 2ACE
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "client": {
+            "name": "keybase.io node.js client",
+            "version": "0.4.11"
+        },
+        "key": {
+            "fingerprint": "253bdc3c94e5f33a0a20f0b3415c1fdc7aeb2ace",
+            "host": "keybase.io",
+            "key_id": "415C1FDC7AEB2ACE",
+            "uid": "a5271ff788e2e238445f1c9f70537f00",
+            "username": "adamyonk"
+        },
+        "merkle_root": {
+            "ctime": 1405377428,
+            "hash": "0f0ad90b15891dc62a5bb521167cb6357d845e36bfc6950ec3d418d60f5e7d13c7a963ad1b5202aab09809a3445cbeaac899e67d5945506b71efe8185c167a49",
+            "seqno": 27829
+        },
+        "service": {
+            "hostname": "adamyonk.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1405377613,
+    "expire_in": 157680000,
+    "prev": "7c5b557a8994b26f420cac9bedb1f0787b60aa264567013980f63d67a2965f91",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
+Comment: GPGTools - http://gpgtools.org
+
+owFdkl1sFFUYhndLC1GDMWYllNhknURBbZbzM+ecmTVctBWNxmIQkwKurOdv2rHd
+me3s7EolDaFgtDUBISFECD9qYq1RY43CBXKBqYaWH02hXhigeGGjNDFKQkATomea
+GsW5mpnv/d7ve95z3lq8IFWXXrP+Bbzr4PU/0qd/Eal1Y4X2LZYIVZ+V32LJHl8H
+cfIW8JK28la37hO8onN+mA1CpXMvV7LzmmarpqOKHwZGBXJ2DkKrvznRJ92eH3Tq
+qBz5iZmFCBZKYunamngYc8AR8IDANiQSekoyrgXiUhvPrrAS3zbWmvMs+sr8Nfo2
++MTjbaxldStqaVttatW5AieIQc9jjqORRtixbeJB6XoMEMw8ABJhRUfzTFzxUl8Y
+dCf7lnTU3aOLURjOUcvYTyTQThqZjRyzEa90JYge4MoFAhLHhUpSxIkQBEFImRQU
+E6Ycm2hMhSepS4CWWNnQURR4RDMFsYF0KeYKmiaAOBfAdYDLsVlVCs25dFxXU6aI
+axMCqGBQe9qBjkmIMm67BqGie4PQyiPmILc/+YxqvgnNrJ2k9j+4nAxLpqcchXEo
+wx5T6Yrjcj5hjvvKifIVLYofz5sUhR8oc2b/PVVopLfnQSFutvTmsh/pop8oCKMO
+ME8yR9eMJ5NEEMK4gbEFop6NgOTSFVoJ6AHmMEEB54jahDIAsYnAo1gZQORS4rnw
+X0ozKeadxrLidwY8rkba6h9M31+fStelFjbUJdc2decd9/xzl5uzi241Nd7cV4PP
+DgwvH0WZbPWx0T9XZF76dVtj4aGO3cf3lJ56/fNry/Zf2jX7pM5taxofyDww3bqp
+pfDJ+at/LSxtOnXqt6Gr9R3PHMqcYPtGtn64fMXpc4Uoe3b6vt6Ohqn31hRuvLvh
+5+emBg5snvxi9puHd2Qvow29h2f11r0TjReuHFs32Tvz2e/v3HV09Ej7V931qwYX
+DbVYHz16pnzgxtPT1YmTj6Q2Htx56dj2V6c/eP5B8Gl1rOnEaG782o7XYPrri7uv
+n5zc2d7KZkqTS5YeXbx0bf9I9fvalS/Pr9o7tmRo8O3htRPb38gMv3j4BzxTHN8/
+tefmtyO37m34cdn6jV13//TdoTfz70N2YeXf
+=37r1
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/adamyonk
+
+==================================================================
