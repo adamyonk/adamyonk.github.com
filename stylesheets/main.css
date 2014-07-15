@@ -19,14 +19,14 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: #657b83;
-  font-size: 100%; 
+  font-size: 100%;
   font-weight: 100;
 }
 h1, h2, h3, h4, h5, h6, ol, p, ul, .highlight { margin-bottom: 1.3rem; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.3rem; }
 
-a { 
+a {
   border: none;
   border-bottom: 0.1rem dotted #93a1a1;
   color: #586e75;
@@ -69,6 +69,7 @@ nav a.main {
 nav a:hover { border: none; }
 nav a.ss-twitter:hover { color: hsl(192,98%,57%); }
 nav a.ss-octocat:hover { color: hsl(210,53%,51%); }
+nav a.ss-key:hover { color: hsl(15,98%,58%); }
 nav a.ss-rss:hover { color: hsl(30,98%,57%); }
 
 article { margin-bottom: 3rem; }

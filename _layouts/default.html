@@ -11,6 +11,7 @@
 
         <!-- SymbolSet CSS -->
         <link rel="stylesheet" href="/stylesheets/ss-social.css">
+        <link rel="stylesheet" href="/stylesheets/ss-standard.css">
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/stylesheets/main.css">
@@ -18,10 +19,11 @@
     </head>
     <body>
       <nav>
-        <a class="main" href="/">✖</a>
-        <a class="ss-twitter" href="http://twitter.com/adamyonk"></a>
-        <a class="ss-octocat" href="http://github.com/adamyonk"></a>
-        <a class="ss-rss" href="/atom.xml"></a>
+        <a class="main" href="/" title="Home">✖</a>
+        <a class="ss-icon ss-social ss-twitter" href="http://twitter.com/adamyonk" title="Twitter"></a>
+        <a class="ss-icon ss-social ss-octocat" href="http://github.com/adamyonk" title="GitHub"></a>
+        <a class="ss-key" href="http://keybase.io/adamyonk" title="Keybase"></a>
+        <a class="ss-icon ss-social ss-rss" href="/atom.xml" title="RSS"></a>
       </nav>
 
       {{ content }}
