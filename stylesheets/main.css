@@ -52,6 +52,19 @@ em { font-style: italic }
 
 ol, ul { list-style-type: none; }
 
+dl { 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+dl > * {
+  width: 50%;
+}
+
+table { width: 100%; }
+th { text-align: left; }
+
 nav { margin: 2rem 0rem; }
 nav a {
   border: none;
@@ -74,6 +87,11 @@ nav a.ss-rss:hover { color: hsl(30,98%,57%); }
 
 article { margin-bottom: 3rem; }
 article * { max-width: 100%; }
+article ul,
+article ol { margin-left: 1em; }
+article ul { list-style-type: disc; }
+article ol { list-style-type: decimal; }
+article table { margin-bottom: 1.5em; }
 header { margin-bottom: 1rem; }
 header h1 { margin-bottom: 0rem; }
 
