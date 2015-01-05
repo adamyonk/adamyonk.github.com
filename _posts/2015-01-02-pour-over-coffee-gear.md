@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Pour-Over Coffee Gear"
+title: "Pour Over Coffee Gear"
 date: 2015-01-04 22:44:00 -0600
 tags: gear, coffee
 ---
