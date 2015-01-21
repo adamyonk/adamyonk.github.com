@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-html, body { height: 100%; }
+html, body { }
 
 body {
   background-color: #fdf6e3;
@@ -52,7 +52,7 @@ em { font-style: italic }
 
 ol, ul { list-style-type: none; }
 
-dl { 
+dl {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
