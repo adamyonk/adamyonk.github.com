@@ -77,7 +77,8 @@ nav a {
 }
 nav a.main {
   color: #cb4b16;
-  font-size: 2rem;
+  margin-right: 0.5em;
+  margin-top: -0.5em;
 }
 nav a:hover { border: none; }
 nav a.ss-twitter:hover { color: hsl(192,98%,57%); }

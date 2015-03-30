@@ -1,6 +1,6 @@
 baseurl: http://adamyonk.com
 exclude: [ 'CNAME', 'Gemfile', 'Gemfile.lock', 'script' ]
-highlighter: true
+highlighter: pygments
 markdown: redcarpet
 redcarpet:
   extension: [with_toc_data]
