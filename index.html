@@ -5,13 +5,18 @@ title: adamyonk – Adam Jahnke
 
 <div id="home">
   <p>
-    I'm Adam Jahnke – an engineer at <a href="http://librato.com">Librato</a>. I thoroughly enjoy writing code, especially JavaScript and Ruby. I love to make the complex simple. I live in Springfield, Missouri with my beautiful wife <a href="http://twitter.com/oliviayonk">Olivia</a>.
+    I'm Adam Jahnke – an engineer at <a href="https://www.librato.com/about">Librato</a>. I thoroughly enjoy writing code, especially JavaScript and Ruby. I love to make the complex simple. I live in Springfield, Missouri with my beautiful wife <a href="http://twitter.com/oliviayonk">Olivia</a>.
   </p>
 
   <h2>Recent Posts:</h2>
   <ul>
     {% for post in site.posts %}
-    <li><small class="monospace">{{ post.date | date: '%b %d, %Y' }}</small> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    <li class="post-li">
+      <span class="post-li__meta">
+        <small class="monospace">{{ post.date | date: '%b %d, %Y' }}</small> &raquo;
+      </span>
+      <a class="post-li__title" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
     {% endfor %}
   </ul>
 </div>
