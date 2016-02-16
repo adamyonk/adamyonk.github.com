@@ -9,7 +9,21 @@ For the uninitiated, [ImageOptim][imageoptim] is a great Mac app that uses sever
 
 I like to pair the [guard-shell][guardshell] gem with ImageOptim to help me keep my project's image assets compressed and ready for production. Make sure you have both guard and guard-shell in your Gemfile and set up a watcher in your Guardfile for new or edited images:
 
-<script src="https://gist.github.com/4503714.js"></script>
+{% comment %}<script src="https://gist.github.com/4503714.js"></script>{% endcomment %}
+
+~~~ruby
+gem 'guard'
+gem 'guard-shell'
+~~~
+
+~~~ruby
+guard 'shell' do
+  watch %r{^public/images/.} do |file|
+    n file[0], 'Image changed'
+    `open #{file[0]} -a ImageOptim`
+  end
+end
+~~~
 
 An interesting side effect to note is that guard will catch the file change when ImageOptim is done compressing and re-open it in ImageOptim and continue this loop untill there's nothing else ImageOptim can compress out of the image.
 

@@ -9,5 +9,9 @@ I put together a pretty simple solution for masking yet another native HTML inpu
 
 I'm just kidding. You guys are great!
 
+{% comment %}
 <pre data-height="300" data-theme-id="0" data-slug-hash="KelCo" data-user="adamyonk" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/adamyonk/pen/KelCo'>Easy masked file inputs with JS</a> by Adam Jahnke (<a href='http://codepen.io/adamyonk'>@adamyonk</a>) on <a href='http://codepen.io'>CodePen</a></pre>
 <script async src="http://codepen.io/assets/embed/ei.js"></script>
+{% endcomment %}
+
+<a class="jsbin-embed" href="http://jsbin.com/susuda/embed?output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.35.9"></script>

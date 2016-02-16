@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-bundle exec jekyll serve --baseurl '' --drafts --port 4001 --trace --watch

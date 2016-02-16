@@ -9,7 +9,40 @@ I recently started building a Rails 4 app and ran into some hangups when using s
 
 In a scenario where you have an album that `has_many` songs, and you want to be able to edit both with the same form, you need to add every nested attribute that you plan to pass through to the `params.permit()`. This is the setup that ended up working for me:
 
-<script src="https://gist.github.com/adamyonk/5593868.js"></script>
+{% comment %}<script src="https://gist.github.com/adamyonk/5593868.js"></script>{% endcomment %}
+
+~~~ruby
+= form_for @album do |f|
+  = f.text_field :title
+  = f.fields_for :songs do |s|
+    = s.text_field :name
+  ...
+~~~
+
+~~~ruby
+class Album < ActiveRecord::Base
+  has_many :songs
+  accepts_nested_attributes_for :songs, allow_destroy: true
+  ...
+end
+~~~
+
+~~~ruby
+class AlbumsController < ApplicationController
+  ...
+  private
+  def album_params
+    params.require(:album).permit(:title, songs_attributes: [:id, :_destroy, :name])
+  end
+end
+~~~
+
+~~~ruby
+class Song < ActiveRecord::Base
+  belongs_to :album
+  ...
+end
+~~~
 
 Do you know of a better or easier way? [Let me know!][email]
 

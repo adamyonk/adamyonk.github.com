@@ -2,7 +2,7 @@
 layout: post
 title: "Pour Over Coffee Gear"
 date: 2015-01-04 22:44:00 -0600
-tags: gear, coffee
+tags: gear coffee
 ---
 
 Writing about something as subjective as coffee is difficult. So don't take this

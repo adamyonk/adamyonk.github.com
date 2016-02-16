@@ -8,7 +8,8 @@ layout: default
     <small>
       <time datetime="{{ page.date }}">
       Posted {{ page.date | date: "%B %d, %Y" }} under
-      <em>{{ page.tags | array_to_sentence_string }}</em>
+      {% capture tags %}{% for tag in page.tags %}{% if tag != page.tags[0] %}|||{% endif %}<span class="tag" data-tag="{{ tag }}">{{ tag }}</span>{% endfor %}{% endcapture %}
+      <em>{{ tags | split: '|||' | array_to_sentence_string }}</em>
     </small>
   </header>
 

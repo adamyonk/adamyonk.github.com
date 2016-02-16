@@ -162,14 +162,27 @@ header h1 { margin-bottom: 0rem; }
   -webkit-flex: 0 0 100px;
       -ms-flex: 0 0 100px;
           flex: 0 0 100px;
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
   white-space: nowrap;
 }
 .post-li__title {
 }
+.post-li__tags {
+  color: color(base01);
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.tag {
+  cursor: default;
+  &.hover {
+    color: color(base02);
+  }
+}
 
 .highlight {
   background-color: color(base3);
+  border-radius: 2px;
   overflow: scroll;
-  padding: 0.5rem;
+  padding: 0.25rem 0.75rem;
 }

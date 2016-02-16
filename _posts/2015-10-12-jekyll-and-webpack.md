@@ -10,14 +10,14 @@ using Webpack. The compiled bundle should be parsed by Liquid, so it needed to
 somehow have the YAML triple-dashes prepended to it. Luckily, there is a Webpack
 plugin for just such an occasion! In `webpack.config.js`:
 
-```javascript
+~~~javascript
 var webpack = require('webpack')
 module.exports = {
   plugins: [
     new webpack.BannerPlugin("---\n---\n\n", { raw: true })
   ]
 }
-```
+~~~
 
 The `{ raw: true }` bit in the options is important, otherwise `BannerPlugin`
 will output the passed string as a comment and Liquid won't know about it.
@@ -29,11 +29,11 @@ the document `<head>`. So now I'll be able to use Liquid tags for things like
 this:
 
 {% raw %}
-```scss
+~~~scss
 .site-header {
   background-image: url("{{ '/images/logo.jpg' | prepend: site.baseurl }}");
 }
-```
+~~~
 {% endraw %}
 
 To read about the options for `BannerPlugin` and to see all of the available

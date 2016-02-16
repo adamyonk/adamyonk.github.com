@@ -1,7 +1,3 @@
 baseurl: http://adamyonk.com
-exclude: [ 'CNAME', 'Gemfile', 'Gemfile.lock', 'script' ]
-highlighter: pygments
-markdown: redcarpet
-redcarpet:
-  extension: [with_toc_data]
+exclude: [bin, CNAME, Gemfile, Gemfile.lock]
 title: Adam Jahnke
