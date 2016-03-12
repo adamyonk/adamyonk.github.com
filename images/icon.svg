@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="236px" height="236px" viewBox="0 0 236 236" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
-    <title>Untitled</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="⤫" sketch:type="MSLayerGroup" fill="#dc322f">
-            <path d="M100.776,87.032 L14.376,0.344 L0.84,13.88 L87.24,100.568 L100.776,87.032 Z M235.848,13.88 L222.312,0.344 L0.84,222.392 L14.376,235.928 L235.848,13.88 Z M235.848,222.392 L149.448,135.704 L135.912,149.24 L222.312,235.928 L235.848,222.392 Z" sketch:type="MSShapeGroup"></path>
-        </g>
-    </g>
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+    <path fill="#dc322f" d="M100.776,87.032 L14.376,0.344 L0.84,13.88 L87.24,100.568 L100.776,87.032 Z M235.848,13.88 L222.312,0.344 L0.84,222.392 L14.376,235.928 L235.848,13.88 Z M235.848,222.392 L149.448,135.704 L135.912,149.24 L222.312,235.928 L235.848,222.392 Z" sketch:type="MSShapeGroup"></path>
+  </g>
 </svg>

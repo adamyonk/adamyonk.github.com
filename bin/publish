@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+DIR="${DIR%/bin*}"
+
+cd "$DIR/_site"
+if [ ! -e '.git' ]; then
+  remote_url=$(git config --get remote.origin.url)
+  owner_repo=$(echo $remote_url | sed -En 's_^(git@|https://)?github.com(:|/)(.*)/(.*)(.git)?_\3 \4_p')
+  owner=$(echo $owner_repo | sed 's_ .*__')
+  repo=$(echo $owner_repo | sed 's_.* __')
+  git init
+  git remote add origin "git@github.com:$owner/$repo.git"
+fi
+
+git commit -m "Site updated at $(date)"
+git push origin master --force
