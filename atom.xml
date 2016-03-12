@@ -3,7 +3,7 @@
   <title>Adam Jahnke</title>
   <link href="/atom.xml" rel="self"/>
   <link href="/"/>
-  <updated>2016-03-08T14:23:29-06:00</updated>
+  <updated>2016-03-12T14:08:06-06:00</updated>
   <id>/</id>
   <author>
     <name>Adam Jahnke</name>
@@ -14,7 +14,20 @@
     <link href="/2016/03/08/github-merge-button-from-cli.html"/>
     <updated>2016-03-08T12:42:39-06:00</updated>
     <id>/2016/03/08/github-merge-button-from-cli</id>
-    <content type="html">
+    <content type="html">&lt;p&gt;It’s no fun to have to clean up git history after a botched command line merge
+of a GitHub pull request. I love to live life in the shell, and I don’t want to
+open a new browser tab just to click &lt;a href=&quot;https://github.com/blog/843-the-merge-button&quot;&gt;The Merge Button&lt;/a&gt;, so sometimes I’m
+stubborn and I don’t. And sometimes I waste a lot of time cleaning up the mess
+that happens when I try to do all of that with an outdated master branch.&lt;/p&gt;
+
+&lt;p&gt;With some prodding and direction from my good friend &lt;a href=&quot;https://github.com/pengwynn&quot;&gt;pengwynn&lt;/a&gt;, I put
+together a script based on the new-to-me &lt;a href=&quot;https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button&quot;&gt;Merge Button API Route&lt;/a&gt;. So, go
+forth and merge with glee, in safety, and without leaving our beloved shell. ❤️&lt;/p&gt;
+
+&lt;p&gt;See &lt;code class=&quot;highlighter-rouge&quot;&gt;git-merge-pr&lt;/code&gt; below or &lt;a href=&quot;https://github.com/adamyonk/dotfiles/commit/2db7d4b82344816bb215eec21c40044e48e59781&quot;&gt;cherry-pick it from my dotfiles&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h2 id=&quot;git-merge-pr&quot;&gt;git-merge-pr&lt;/h2&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Contributors:&lt;/span&gt;
@@ -83,6 +96,7 @@ else
 &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
 </content>
   </entry>
   
