@@ -30,17 +30,18 @@
 </a>
 
 
-      <header>
-  <h1>Use long flags when scripting</h1>
-  <small>
-    <time datetime="2012-12-17 10:32:59 -0600">
-    Posted December 17, 2012 under
-    
-    <em><span class="tag" data-tag="command-line"><a href="/tag/command-line">command-line</a></span> and <span class="tag" data-tag="programming"><a href="/tag/programming">programming</a></span></em>
-  </small>
-</header>
+      <article>
+  <header>
+    <h1>Use long flags when scripting</h1>
+    <small>
+      <time datetime="2012-12-17 10:32:59 -0600">
+      Posted December 17, 2012 under
+      
+      <em><span class="tag" data-tag="command-line"><a href="/tag/command-line">command-line</a></span> and <span class="tag" data-tag="programming"><a href="/tag/programming">programming</a></span></em>
+    </small>
+  </header>
 
-<p>I peruse a fair amount of dotfile repos, and keep seeing people use short flags for things like aliases and inside little command line tools. Short flags are a command line shortcut, and they do belong there, but if you’re not writing the command in a prompt, do yourself (and anyone else that may someday be reading your code) a favor and be more verbose, because this:</p>
+  <p>I peruse a fair amount of dotfile repos, and keep seeing people use short flags for things like aliases and inside little command line tools. Short flags are a command line shortcut, and they do belong there, but if you’re not writing the command in a prompt, do yourself (and anyone else that may someday be reading your code) a favor and be more verbose, because this:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl --silent checkip.dyndns.org | grep --extended-regexp --only-matching <span class="s1">'[0-9\.]+'</span></code></pre></figure>
 
@@ -49,6 +50,7 @@
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl -s checkip.dyndns.org | grep -Eo <span class="s1">'[0-9\.]+'</span></code></pre></figure>
 
 
+</article>
 
 <a href="/">Back to all posts</a>
 
