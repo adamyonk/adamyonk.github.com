@@ -35,8 +35,8 @@ See `git-merge-pr` below or [grab it from my dotfiles][git-merge-pr]!
 #/ Usage:
 #/   git merge-pr [<branch>|<pr>]
 #/
-#/ Looks up the most recent pull requst based on the current branch or
-#/ <branch>, and tries to merge it using the merge API (like the Merge Button).
+#/ Looks up the most recent pull requst based on <branch>, <pr>, or the current
+#/ branch, and tries to merge it using the merge API (like the Merge Button).
 #/
 #/ Requirements:
 #/   - $GITHUB_TOKEN environment variable
