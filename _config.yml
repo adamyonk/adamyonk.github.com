@@ -1,4 +1,5 @@
 baseurl: http://adamyonk.com
-exclude: [bin, CNAME, Gemfile, Gemfile.lock, tags]
+exclude: [bin, Gemfile, Gemfile.lock, tags]
 include: [.nojekyll]
 title: Adam Jahnke
+permalink: pretty
