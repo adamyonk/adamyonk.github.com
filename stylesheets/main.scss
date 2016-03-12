@@ -52,17 +52,18 @@ h1, h2, h3, h4, h5, h6 {
   color: color(cyan);
   font-size: 100%;
   font-weight: 100;
+  line-height: 1.1;
 }
 h1, h2, h3, h4, h5, h6, ol, p, ul, .highlight { margin-bottom: 1.3rem; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.3rem; }
 
 a {
-  border: none;
+  border-bottom: 1px dotted transparent;
   color: color(base2);
   text-decoration: none;
 }
-a:hover { border-bottom: 1px dotted color(base2); }
+a:hover { border-color: color(base2); }
 
 blockquote {
   border-left: 0.2rem solid color(yellow);
@@ -108,11 +109,24 @@ a.main {
   // background-size: 100%;
   border: none;
   display: block;
-  height: 15rem;
+  height: 13rem;
   margin: 3rem auto;
-  width: 15rem;
-  svg path {
+  width: 13rem;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+  path {
     fill: color(logo);
+  }
+}
+
+@media (max-width: 480px) {
+  .post a.main {
+    display: inline-block;
+    height: 3em;
+    margin: 0 1em 0 0;
+    width: 3em;
   }
 }
 
@@ -161,6 +175,20 @@ header h1 { margin-bottom: 0rem; }
   display: -ms-flexbox;
   display: flex;
 }
+@media (max-width: 480px) {
+  .post-li {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    margin-bottom: 1em;
+  }
+  .post-li__arrow {
+    display: none;
+  }
+  .post-li__title {
+    width: 100%;
+  }
+}
 .post-li__meta {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 100px;
@@ -170,11 +198,11 @@ header h1 { margin-bottom: 0rem; }
   white-space: nowrap;
 }
 .post-li__title {
+  margin-right: 0.5rem;
 }
 .post-li__tags {
   color: color(base01);
   font-size: 0.8rem;
-  margin-left: 0.5rem;
   a {
     color: color(base01);
   }

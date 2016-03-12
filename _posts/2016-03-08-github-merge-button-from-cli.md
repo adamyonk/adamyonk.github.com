@@ -15,12 +15,12 @@ With some prodding and direction from my good friend [pengwynn][], I put
 together a script based on the new-to-me [Merge Button API Route][]. So, go
 forth and merge with glee, in safety, and without leaving our beloved shell. ❤️
 
-See `git-merge-pr` below or [cherry-pick it from my dotfiles][commit]!
+See `git-merge-pr` below or [grab it from my dotfiles][git-merge-pr]!
 
 [The Merge Button]: https://github.com/blog/843-the-merge-button
 [pengwynn]: https://github.com/pengwynn
 [Merge Button API Route]: https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
-[commit]: https://github.com/adamyonk/dotfiles/commit/2db7d4b82344816bb215eec21c40044e48e59781
+[git-merge-pr]: https://github.com/adamyonk/dotfiles/blob/master/bin/git-merge-pr
 
 ## git-merge-pr
 
@@ -33,7 +33,7 @@ See `git-merge-pr` below or [cherry-pick it from my dotfiles][commit]!
 
 #/
 #/ Usage:
-#/   git merge-pr [<branch>]
+#/   git merge-pr [<branch>|<pr>]
 #/
 #/ Looks up the most recent pull requst based on the current branch or
 #/ <branch>, and tries to merge it using the merge API (like the Merge Button).
@@ -65,15 +65,19 @@ owner_repo=$(echo $remote_url | sed -En 's_^(git@|https://)?github.com(:|/)(.*)/
 owner=$(echo $owner_repo | sed 's_ .*__')
 repo=$(echo $owner_repo | sed 's_.* __')
 branch=${1:-"$(git symbolic-ref HEAD | sed 's_refs/heads/__')"}
-
 endpoint="https://api.github.com/repos/$owner/$repo/pulls"
 auth="Authorization: token $GITHUB_TOKEN"
 
-# Get the first matching pull request for $branch
-# https://developer.github.com/v3/pulls/#list-pull-requests
-pull=$(curl --silent --header "$auth"\
-  "$endpoint?head=$owner:$branch"\
-  | jq '.[0].number')
+# Check if $1 is actually a pull request number
+if $(echo $1 | grep --silent '^\d*$'); then
+  pull=$1
+else
+  # Get the first matching pull request for $branch
+  # https://developer.github.com/v3/pulls/#list-pull-requests
+  pull=$(curl --silent --header "$auth"\
+    "$endpoint?head=$owner:$branch"\
+    | jq '.[0].number')
+fi
 
 # Try to merge
 # https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
