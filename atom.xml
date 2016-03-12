@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Adam Jahnke</title>
+  <link href="/atom.xml" rel="self"/>
+  <link href="/"/>
+  <updated>2016-03-08T14:23:29-06:00</updated>
+  <id>/</id>
+  <author>
+    <name>Adam Jahnke</name>
+  </author>
+  
+  <entry>
+    <title>GitHub Merge Button from CLI</title>
+    <link href="/2016/03/08/github-merge-button-from-cli.html"/>
+    <updated>2016-03-08T12:42:39-06:00</updated>
+    <id>/2016/03/08/github-merge-button-from-cli</id>
+    <content type="html">
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Contributors:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   Adam Jahnke - http://github.com/adamyonk&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   Wynn Netherland - http://github.com/pengwynn&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/ Usage:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/   git merge-pr [&amp;lt;branch&amp;gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/ Looks up the most recent pull requst based on the current branch or&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/ &amp;lt;branch&amp;gt;, and tries to merge it using the merge API (like the Merge Button).&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/ Requirements:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/   - $GITHUB_TOKEN environment variable&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/   - jq https://stedolan.github.io/jq/&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -e
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;--help&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;-h&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;grep ^#/ &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | cut -c4-
+  &lt;span class=&quot;nb&quot;&gt;exit
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fi
+
+if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; -z &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Please export &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;GITHUB_TOKEN&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1
+&lt;span class=&quot;k&quot;&gt;fi
+
+if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; -z &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;which jq&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Please install jq: https://stedolan.github.io/jq/&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git config --get remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;owner_repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$remote_url&lt;/span&gt; | sed -En &lt;span class=&quot;s1&quot;&gt;&#39;s_^(git@|https://)?github.com(:|/)(.*)/(.*)(.git)?_\3 \4_p&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_ .*__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_.* __&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git symbolic-ref HEAD | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_refs/heads/__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://api.github.com/repos/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$repo&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/pulls&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Authorization: token &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Get the first matching pull request for $branch&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://developer.github.com/v3/pulls/#list-pull-requests&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl --silent --header &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$auth&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$endpoint&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?head=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$branch&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | jq &lt;span class=&quot;s1&quot;&gt;&#39;.[0].number&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Try to merge&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$pull&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;null&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl --silent --request PUT --data &lt;span class=&quot;s2&quot;&gt;&quot;{}&quot;&lt;/span&gt; --header &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$auth&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$endpoint&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$pull&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/merge&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | jq &lt;span class=&quot;s1&quot;&gt;&#39;.message&#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_&quot;__g&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; ! &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~ &lt;span class=&quot;s2&quot;&gt;&quot;success&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;https://github.com/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$repo&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/pull/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$pull&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;fi
+else
+  &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Couldn&#39;t find an open pull request based on &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$branch&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Trust</title>
+    <link href="/2016/02/03/trust.html"/>
+    <updated>2016-02-03T11:08:05-06:00</updated>
+    <id>/2016/02/03/trust</id>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;The faith that changes the life and connects to God is best conveyed by the
+word “trust.” Imagine you are on a high cliff and you lose your footing and
+begin to fall. Just beside you as you fall is a branch sitcking out of the
+very edge of the cliff. It is your only hope and it is more than strong
+enough to support your weight. How can it save you? If your mind is filled
+with intellectual certainty that the branch can support you, but you don’t
+actually reach out and grab it, you are lost. If your mind is instead filled
+with doubts and uncertainty that the branch can hold you, but you reach out
+and grab it anyway, you will be saved. Why? It is not the strength of your
+faith but the object of your faith that actually saves you. Strong faith in a
+weak branch is fatally inferior to weak faith in a strong branch.&lt;/p&gt;
+
+  &lt;p&gt;This means you don’t have to wait for all doubts and fears to go away to take
+hold of Christ. Don’t make the mistake of thinking that you have to banish
+all misgivings in order to meet God. That would turn your faith into one more
+way to be your own Savior. Working on the quality and purity of your
+commitment would become a way to merit salvation and put God in your debt. It
+is not the depth and purtity of your heart but the work of Jesus Christ on
+our behalf that saves us.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;– Tim Keller, &lt;em&gt;The Reason for God&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Jekyll and Webpack</title>
+    <link href="/2015/10/12/jekyll-and-webpack.html"/>
+    <updated>2015-10-12T10:30:00-05:00</updated>
+    <id>/2015/10/12/jekyll-and-webpack</id>
+    <content type="html">&lt;p&gt;I was recently setting up a Jekyll site that had the JavaScript and CSS compiled
+using Webpack. The compiled bundle should be parsed by Liquid, so it needed to
+somehow have the YAML triple-dashes prepended to it. Luckily, there is a Webpack
+plugin for just such an occasion! In &lt;code class=&quot;highlighter-rouge&quot;&gt;webpack.config.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;webpack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;webpack&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;webpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BannerPlugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;---\n---\n\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;raw:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; bit in the options is important, otherwise &lt;code class=&quot;highlighter-rouge&quot;&gt;BannerPlugin&lt;/code&gt;
+will output the passed string as a comment and Liquid won’t know about it.&lt;/p&gt;
+
+&lt;p&gt;When Jekyll picks up my built bundle to compile it into &lt;code class=&quot;highlighter-rouge&quot;&gt;/_site&lt;/code&gt;, it will now
+have the triple-dashes prepended to the file. I use the &lt;code class=&quot;highlighter-rouge&quot;&gt;style-loader&lt;/code&gt; with
+Webpack so that I can &lt;code class=&quot;highlighter-rouge&quot;&gt;require&lt;/code&gt; styles in my JavaScript and have them written to
+the document &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;head&amp;gt;&lt;/code&gt;. So now I’ll be able to use Liquid tags for things like
+this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.site-header&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(&quot;{{ &#39;/images/logo.jpg&#39; | prepend: site.baseurl }}&quot;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To read about the options for &lt;code class=&quot;highlighter-rouge&quot;&gt;BannerPlugin&lt;/code&gt; and to see all of the available
+Webpack plugins, head over to the &lt;a href=&quot;https://webpack.github.io/docs/list-of-plugins.html#bannerplugin&quot;&gt;List of Plugins&lt;/a&gt; page in the docs.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Pour Over Coffee Gear</title>
+    <link href="/2015/01/04/pour-over-coffee-gear.html"/>
+    <updated>2015-01-04T22:44:00-06:00</updated>
+    <id>/2015/01/04/pour-over-coffee-gear</id>
+    <content type="html">&lt;p&gt;Writing about something as subjective as coffee is difficult. So don’t take this
+as anything more than my personal opinion and preferences on coffee. I tried to
+boil the categories down to my favorite three items at varying price points.
+This post is mainly about gear, I may write something more along the lines of
+brewing how-tos in the future.&lt;/p&gt;
+
+&lt;h2 id=&quot;brewing-methods&quot;&gt;Brewing Methods&lt;/h2&gt;
+
+&lt;p&gt;I think the biggest differentiator between these brewing methods is the filter
+weight and how that affects the taste of the coffee. The difference between
+these three in terms of all of the ways that coffee is made in the world is
+minimal, but when only considering what is generally referred to as ‘pour over’
+coffee, there are significant differences. Chemex filters are the most dense and
+therefore make the cleanest cup of coffee. On the other side of the scale
+would be V60 filters which are the lightest and therefore give the cup more body
+and robustness. I’d say that Wave filters are somewhere in between, but closer
+to V60 filters. I should note that while all of these list the capacity in cups,
+for some reason ‘cup’ means ~5 ounces in coffee. So, for example, the V60 sizes
+would really make about 1, 2, or 3 ‘regular’ 10-12 ounce cups.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;Capacity&lt;/th&gt;
+    &lt;th&gt;Filter price&lt;/th&gt;
+    &lt;th&gt;Price&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Hario V60&lt;/td&gt;
+    &lt;td&gt;2, 4, or 6 cups&lt;/td&gt;
+    &lt;td&gt;6-8¢/filter&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B000P4D5HG&quot;&gt;$16-$30&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Kalita Wave&lt;/td&gt;
+    &lt;td&gt;4 cups&lt;/td&gt;
+    &lt;td&gt;15¢/filter&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B000X1AM0Y&quot;&gt;$32&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Chemex&lt;/td&gt;
+    &lt;td&gt;3, 6, or 8 cups&lt;/td&gt;
+    &lt;td&gt;11¢/filter&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B0036YFTO4&quot;&gt;$35-$65&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;grinders&quot;&gt;Grinders&lt;/h2&gt;
+
+&lt;p&gt;There are generally two types of grinders; blade grinders and burr grinders.
+Blade grinders chop at the coffee beans and as a result don’t keep a consistent
+coarseness of grind. Burr grinders on the other hand, crush the coffee, which is
+a much more consistent and controllable method. Within the realm of burr
+grinders, there are wheel burrs and conical burrs and conical burrs are better.
+All of the grinders that I have listed below are conical burr grinders.  The
+glaring differences are the size of the burr (bigger is better) and electric
+versus manual. Manual grinders work great, but if you’re making more than a few
+cups of coffee at a time, they can be tiring and time consuming to operate.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;Type&lt;/th&gt;
+    &lt;th&gt;Price&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Hario Ceramic Mill&lt;/td&gt;
+    &lt;td&gt;manual&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B001802PIQ&quot;&gt;$38&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Baratza Encore&lt;/td&gt;
+    &lt;td&gt;electric&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B00LW8122Y&quot;&gt;$130&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Baratza Preciso&lt;/td&gt;
+    &lt;td&gt;electric&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B003JFCRN6&quot;&gt;$300&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;scales--timers&quot;&gt;Scales &amp;amp; Timers&lt;/h2&gt;
+
+&lt;p&gt;An accurate food scale and a timer are the foundation that consistently good
+coffee is built on. You have to be able to replicate your parameters once you
+find the perfect balance with your coffee of choice. Below are a range of scales
+that vary in features – while a built-in timer is not absolutely necessary (any
+timer will do), it is quite convenient.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;Features&lt;/th&gt;
+    &lt;th&gt;Price&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;American Weight Scale&lt;/td&gt;
+    &lt;td&gt;basic scale&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B001RF3XJ2&quot;&gt;$23&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Hario Scale/Timer&lt;/td&gt;
+    &lt;td&gt;built-in timer&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B009GPJMOU&quot;&gt;$44&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Acaia Pearl&lt;/td&gt;
+    &lt;td&gt;built-in timer, iPhone app&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://acaia.co/products/acaia-pearl&quot;&gt;$130&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;kettles&quot;&gt;Kettles&lt;/h2&gt;
+
+&lt;p&gt;The stand-out feature in a kettle is a goose-neck spout.  It allows for very
+accurate and controlled pouring. Below are a range of kettles that, again, vary
+in features. Like tea, the temperature of water is very important in the brewing
+of coffee. The variable temperature model rises above the rest for this reason.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;Features&lt;/th&gt;
+    &lt;th&gt;Price&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Bonavita Stovetop Kettle&lt;/td&gt;
+    &lt;td&gt;stovetop&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B005YR0IBU&quot;&gt;$35&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Bonavita Electric Kettle&lt;/td&gt;
+    &lt;td&gt;electric&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B005YR0GDA&quot;&gt;$50&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Bonavita Variable Temp Kettle&lt;/td&gt;
+    &lt;td&gt;electric, temp display &amp;amp; presets, holds temp&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&quot;http://amzn.com/B005YR0F40&quot;&gt;$85&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;accessories&quot;&gt;Accessories&lt;/h2&gt;
+
+&lt;p&gt;The Chemex has the benefit of being its own serving vessel, but for the V60 and
+Wave, a vessel is needed to capture the coffee. While not absolutely necessary
+(a mason jar will do), the Hario Coffee Server
+(&lt;a href=&quot;http://amzn.com/B000P4B4LU&quot;&gt;$26&lt;/a&gt;) is a beautiful serving vessel.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;A great first setup for someone getting into making pour over coffee at home
+would be a 6-cup V60. As far as the grinder, scale, and kettle goes, it really
+depends on how much convenience you want and how much money you want to spend.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>On Process</title>
+    <link href="/2014/11/19/on-process.html"/>
+    <updated>2014-11-19T17:41:00-06:00</updated>
+    <id>/2014/11/19/on-process</id>
+    <content type="html">&lt;p&gt;Getting things done. It’s enough of a struggle on its own, but getting things
+done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>The Things We Admire</title>
+    <link href="/2014/03/29/the-things-we-admire.html"/>
+    <updated>2014-03-29T10:27:26-05:00</updated>
+    <id>/2014/03/29/the-things-we-admire</id>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;It has always seemed strange to me that the things we admire in men, kindness and generosity, openness, honestly, understanding, and feeling are the concomitants of failure in our system. And those traits we detest, sharpness, greed, acquisitiveness, meanness, egotism, and self-interest are the traits of success. And while men admire the quality of the first they love the produce of the second.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;– John Steinbeck, &lt;em&gt;Cannery Row&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;via: &lt;a href=&quot;http://dcurt.is/the-things-we-admire&quot;&gt;Dustin Curtis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Masked file inputs</title>
+    <link href="/2013/08/01/easy-masked-file-inputs.html"/>
+    <updated>2013-08-01T11:13:31-05:00</updated>
+    <id>/2013/08/01/easy-masked-file-inputs</id>
+    <content type="html">&lt;p&gt;I put together a pretty simple solution for masking yet another native HTML input that behaves just fine on its own. The lengths we’ll go to for our designers…&lt;/p&gt;
+
+&lt;p&gt;I’m just kidding. You guys are great!&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&quot;jsbin-embed&quot; href=&quot;http://jsbin.com/susuda/embed?output&quot;&gt;JS Bin on jsbin.com&lt;/a&gt;&lt;script src=&quot;http://static.jsbin.com/js/embed.min.js?3.35.9&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>CSS Map Pins</title>
+    <link href="/2013/05/17/css-map-pins.html"/>
+    <updated>2013-05-17T14:57:00-05:00</updated>
+    <id>/2013/05/17/css-map-pins</id>
+    <content type="html">&lt;p&gt;I spend a fair amount of time trying to get this shape nailed down in CSS, so I wanted to share and save someone the time. The secret was in setting the second set of radii on the &lt;code class=&quot;highlighter-rouge&quot;&gt;box-shadow&lt;/code&gt; property. &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius&quot;&gt;MDN&lt;/a&gt; has a helpful visual to help wrap your mind around that lesser-known feature of box-shadow.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&quot;jsbin-embed&quot; href=&quot;http://jsbin.com/bepoco/embed?output&quot;&gt;JS Bin on jsbin.com&lt;/a&gt;&lt;script src=&quot;http://static.jsbin.com/js/embed.min.js?3.35.9&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Rails 4, Strong Parameters, and Nested Forms</title>
+    <link href="/2013/05/16/rails-4-strong-parameters-and-nested-forms.html"/>
+    <updated>2013-05-16T13:19:06-05:00</updated>
+    <id>/2013/05/16/rails-4-strong-parameters-and-nested-forms</id>
+    <content type="html">&lt;p&gt;I recently started building a Rails 4 app and ran into some hangups when using strong parameters with nested models and forms. It seems to be lacking documentation for this specific scenario, so I wanted to share my findings.&lt;/p&gt;
+
+&lt;p&gt;In a scenario where you have an album that &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; songs, and you want to be able to edit both with the same form, you need to add every nested attribute that you plan to pass through to the &lt;code class=&quot;highlighter-rouge&quot;&gt;params.permit()&lt;/code&gt;. This is the setup that ended up working for me:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form_for&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@album&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;text_field&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:title&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fields_for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:songs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;text_field&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Album&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:songs&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;accepts_nested_attributes_for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:songs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;allow_destroy: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AlbumsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationController&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;private&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;album_params&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;permit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;songs_attributes: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:_destroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Song&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:album&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Do you know of a better or easier way? &lt;a href=&quot;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#116;&amp;#111;:&amp;#097;&amp;#100;&amp;#097;&amp;#109;&amp;#121;&amp;#111;&amp;#110;&amp;#107;&amp;#064;&amp;#109;&amp;#101;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&amp;#063;&amp;#115;&amp;#117;&amp;#098;&amp;#106;&amp;#101;&amp;#099;&amp;#116;&amp;#061;&amp;#082;&amp;#097;&amp;#105;&amp;#108;&amp;#115;&amp;#037;&amp;#050;&amp;#048;&amp;#052;&amp;#044;&amp;#037;&amp;#050;&amp;#048;&amp;#083;&amp;#116;&amp;#114;&amp;#111;&amp;#110;&amp;#103;&amp;#037;&amp;#050;&amp;#048;&amp;#080;&amp;#097;&amp;#114;&amp;#097;&amp;#109;&amp;#101;&amp;#116;&amp;#101;&amp;#114;&amp;#115;&amp;#044;&amp;#037;&amp;#050;&amp;#048;&amp;#097;&amp;#110;&amp;#100;&amp;#037;&amp;#050;&amp;#048;&amp;#078;&amp;#101;&amp;#115;&amp;#116;&amp;#101;&amp;#100;&amp;#037;&amp;#050;&amp;#048;&amp;#070;&amp;#111;&amp;#114;&amp;#109;&amp;#115;&quot;&gt;Let me know!&lt;/a&gt;&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Using ImageOptim with guard-shell</title>
+    <link href="/2013/01/14/using-imageoptim-with-guard-shell.html"/>
+    <updated>2013-01-14T10:14:37-06:00</updated>
+    <id>/2013/01/14/using-imageoptim-with-guard-shell</id>
+    <content type="html">&lt;p&gt;For the uninitiated, &lt;a href=&quot;http://imageoptim.com&quot; title=&quot;ImageOptim — make websites and apps load faster (Mac app)&quot;&gt;ImageOptim&lt;/a&gt; is a great Mac app that uses several well-known image optimization tools to compress images and help keep file sizes down and &lt;a href=&quot;https://github.com/guard/guard&quot; title=&quot;Guard is a command line tool to easily handle events on file system modifications.&quot;&gt;Guard&lt;/a&gt; is “a command line tool to easily handle events on file system modifications.” If you’ve never tried Guard, I’d encourage you to take some time and check it out. With over &lt;a href=&quot;https://rubygems.org/search?query=guard-&quot;&gt;150 plugins&lt;/a&gt; now available, there’s surely some way that you can use it to optimize your workflow.&lt;/p&gt;
+
+&lt;p&gt;I like to pair the &lt;a href=&quot;https://github.com/guard/guard-shell&quot;&gt;guard-shell&lt;/a&gt; gem with ImageOptim to help me keep my project’s image assets compressed and ready for production. Make sure you have both guard and guard-shell in your Gemfile and set up a watcher in your Guardfile for new or edited images:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;guard&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;guard-shell&#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;guard&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;shell&#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;watch&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;%r{^public/images/.}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Image changed&#39;&lt;/span&gt;
+    &lt;span class=&quot;sb&quot;&gt;`open &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt; -a ImageOptim`&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;An interesting side effect to note is that guard will catch the file change when ImageOptim is done compressing and re-open it in ImageOptim and continue this loop untill there’s nothing else ImageOptim can compress out of the image.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Use long flags when scripting</title>
+    <link href="/2012/12/17/use-long-flags-when-scripting.html"/>
+    <updated>2012-12-17T10:32:59-06:00</updated>
+    <id>/2012/12/17/use-long-flags-when-scripting</id>
+    <content type="html">&lt;p&gt;I peruse a fair amount of dotfile repos, and keep seeing people use short flags for things like aliases and inside little command line tools. Short flags are a command line shortcut, and they do belong there, but if you’re not writing the command in a prompt, do yourself (and anyone else that may someday be reading your code) a favor and be more verbose, because this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl --silent checkip.dyndns.org | grep --extended-regexp --only-matching &lt;span class=&quot;s1&quot;&gt;&#39;[0-9\.]+&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;is a lot easier for a human to understand than this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl -s checkip.dyndns.org | grep -Eo &lt;span class=&quot;s1&quot;&gt;&#39;[0-9\.]+&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Sir Jony Ive</title>
+    <link href="/2012/12/06/sir-jony-ive.html"/>
+    <updated>2012-12-06T13:39:39-06:00</updated>
+    <id>/2012/12/06/sir-jony-ive</id>
+    <content type="html">&lt;p&gt;Tim Cook on Sir Jony Ive in a &lt;a href=&quot;http://rockcenter.nbcnews.com/_news/2012/12/06/15708290-apple-ceo-tim-cook-announces-plans-to-manufacture-mac-computers-in-usa&quot; title=&quot;Read the interview on rockcenter.nbcnews.com&quot;&gt;Rock Center interview&lt;/a&gt; with Brian
+Williams:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Jony [Ive, senior vice president of industrial design], who I think has the
+best taste of anyone in the world and the best design skills, now has
+responsibility for the human interface. I mean, look at our products. (Cook
+reaches for his iPhone.) The face of this is the software, right? And the
+face of this iPad is the software. So it’s saying, Jony has done a remarkable
+job leading our hardware design, so let’s also have Jony responsible for the
+software and the look and feel of the software, not the underlying
+architecture and so forth, but the look and feel. I don’t think there’s
+anybody in the world that has a better taste than he does. So I think he’s
+very special. He’s an original.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;What an incredible reputation to have.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+</feed>
