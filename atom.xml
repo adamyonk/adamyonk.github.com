@@ -3,7 +3,7 @@
   <title>Adam Jahnke</title>
   <link href="/atom.xml" rel="self"/>
   <link href="/"/>
-  <updated>2016-03-12T14:08:06-06:00</updated>
+  <updated>2016-03-12T14:30:22-06:00</updated>
   <id>/</id>
   <author>
     <name>Adam Jahnke</name>
@@ -11,7 +11,7 @@
   
   <entry>
     <title>GitHub Merge Button from CLI</title>
-    <link href="/2016/03/08/github-merge-button-from-cli.html"/>
+    <link href="/2016/03/08/github-merge-button-from-cli/"/>
     <updated>2016-03-08T12:42:39-06:00</updated>
     <id>/2016/03/08/github-merge-button-from-cli</id>
     <content type="html">&lt;p&gt;It’s no fun to have to clean up git history after a botched command line merge
@@ -102,7 +102,7 @@ else
   
   <entry>
     <title>Trust</title>
-    <link href="/2016/02/03/trust.html"/>
+    <link href="/2016/02/03/trust/"/>
     <updated>2016-02-03T11:08:05-06:00</updated>
     <id>/2016/02/03/trust</id>
     <content type="html">&lt;blockquote&gt;
@@ -133,7 +133,7 @@ our behalf that saves us.&lt;/p&gt;
   
   <entry>
     <title>Jekyll and Webpack</title>
-    <link href="/2015/10/12/jekyll-and-webpack.html"/>
+    <link href="/2015/10/12/jekyll-and-webpack/"/>
     <updated>2015-10-12T10:30:00-05:00</updated>
     <id>/2015/10/12/jekyll-and-webpack</id>
     <content type="html">&lt;p&gt;I was recently setting up a Jekyll site that had the JavaScript and CSS compiled
@@ -173,7 +173,7 @@ Webpack plugins, head over to the &lt;a href=&quot;https://webpack.github.io/doc
   
   <entry>
     <title>Pour Over Coffee Gear</title>
-    <link href="/2015/01/04/pour-over-coffee-gear.html"/>
+    <link href="/2015/01/04/pour-over-coffee-gear/"/>
     <updated>2015-01-04T22:44:00-06:00</updated>
     <id>/2015/01/04/pour-over-coffee-gear</id>
     <content type="html">&lt;p&gt;Writing about something as subjective as coffee is difficult. So don’t take this
@@ -337,7 +337,7 @@ depends on how much convenience you want and how much money you want to spend.&l
   
   <entry>
     <title>On Process</title>
-    <link href="/2014/11/19/on-process.html"/>
+    <link href="/2014/11/19/on-process/"/>
     <updated>2014-11-19T17:41:00-06:00</updated>
     <id>/2014/11/19/on-process</id>
     <content type="html">&lt;p&gt;Getting things done. It’s enough of a struggle on its own, but getting things
@@ -347,7 +347,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>The Things We Admire</title>
-    <link href="/2014/03/29/the-things-we-admire.html"/>
+    <link href="/2014/03/29/the-things-we-admire/"/>
     <updated>2014-03-29T10:27:26-05:00</updated>
     <id>/2014/03/29/the-things-we-admire</id>
     <content type="html">&lt;blockquote&gt;
@@ -362,7 +362,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>Masked file inputs</title>
-    <link href="/2013/08/01/easy-masked-file-inputs.html"/>
+    <link href="/2013/08/01/easy-masked-file-inputs/"/>
     <updated>2013-08-01T11:13:31-05:00</updated>
     <id>/2013/08/01/easy-masked-file-inputs</id>
     <content type="html">&lt;p&gt;I put together a pretty simple solution for masking yet another native HTML input that behaves just fine on its own. The lengths we’ll go to for our designers…&lt;/p&gt;
@@ -375,7 +375,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>CSS Map Pins</title>
-    <link href="/2013/05/17/css-map-pins.html"/>
+    <link href="/2013/05/17/css-map-pins/"/>
     <updated>2013-05-17T14:57:00-05:00</updated>
     <id>/2013/05/17/css-map-pins</id>
     <content type="html">&lt;p&gt;I spend a fair amount of time trying to get this shape nailed down in CSS, so I wanted to share and save someone the time. The secret was in setting the second set of radii on the &lt;code class=&quot;highlighter-rouge&quot;&gt;box-shadow&lt;/code&gt; property. &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius&quot;&gt;MDN&lt;/a&gt; has a helpful visual to help wrap your mind around that lesser-known feature of box-shadow.&lt;/p&gt;
@@ -387,7 +387,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>Rails 4, Strong Parameters, and Nested Forms</title>
-    <link href="/2013/05/16/rails-4-strong-parameters-and-nested-forms.html"/>
+    <link href="/2013/05/16/rails-4-strong-parameters-and-nested-forms/"/>
     <updated>2013-05-16T13:19:06-05:00</updated>
     <id>/2013/05/16/rails-4-strong-parameters-and-nested-forms</id>
     <content type="html">&lt;p&gt;I recently started building a Rails 4 app and ran into some hangups when using strong parameters with nested models and forms. It seems to be lacking documentation for this specific scenario, so I wanted to share my findings.&lt;/p&gt;
@@ -434,7 +434,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>Using ImageOptim with guard-shell</title>
-    <link href="/2013/01/14/using-imageoptim-with-guard-shell.html"/>
+    <link href="/2013/01/14/using-imageoptim-with-guard-shell/"/>
     <updated>2013-01-14T10:14:37-06:00</updated>
     <id>/2013/01/14/using-imageoptim-with-guard-shell</id>
     <content type="html">&lt;p&gt;For the uninitiated, &lt;a href=&quot;http://imageoptim.com&quot; title=&quot;ImageOptim — make websites and apps load faster (Mac app)&quot;&gt;ImageOptim&lt;/a&gt; is a great Mac app that uses several well-known image optimization tools to compress images and help keep file sizes down and &lt;a href=&quot;https://github.com/guard/guard&quot; title=&quot;Guard is a command line tool to easily handle events on file system modifications.&quot;&gt;Guard&lt;/a&gt; is “a command line tool to easily handle events on file system modifications.” If you’ve never tried Guard, I’d encourage you to take some time and check it out. With over &lt;a href=&quot;https://rubygems.org/search?query=guard-&quot;&gt;150 plugins&lt;/a&gt; now available, there’s surely some way that you can use it to optimize your workflow.&lt;/p&gt;
@@ -462,7 +462,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>Use long flags when scripting</title>
-    <link href="/2012/12/17/use-long-flags-when-scripting.html"/>
+    <link href="/2012/12/17/use-long-flags-when-scripting/"/>
     <updated>2012-12-17T10:32:59-06:00</updated>
     <id>/2012/12/17/use-long-flags-when-scripting</id>
     <content type="html">&lt;p&gt;I peruse a fair amount of dotfile repos, and keep seeing people use short flags for things like aliases and inside little command line tools. Short flags are a command line shortcut, and they do belong there, but if you’re not writing the command in a prompt, do yourself (and anyone else that may someday be reading your code) a favor and be more verbose, because this:&lt;/p&gt;
@@ -478,7 +478,7 @@ done &lt;em&gt;well&lt;/em&gt; is what really nags at me.&lt;/p&gt;
   
   <entry>
     <title>Sir Jony Ive</title>
-    <link href="/2012/12/06/sir-jony-ive.html"/>
+    <link href="/2012/12/06/sir-jony-ive/"/>
     <updated>2012-12-06T13:39:39-06:00</updated>
     <id>/2012/12/06/sir-jony-ive</id>
     <content type="html">&lt;p&gt;Tim Cook on Sir Jony Ive in a &lt;a href=&quot;http://rockcenter.nbcnews.com/_news/2012/12/06/15708290-apple-ceo-tim-cook-announces-plans-to-manufacture-mac-computers-in-usa&quot; title=&quot;Read the interview on rockcenter.nbcnews.com&quot;&gt;Rock Center interview&lt;/a&gt; with Brian
