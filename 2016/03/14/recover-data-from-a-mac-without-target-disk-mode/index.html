@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Recover Data from a Mac without Target Disk Mode</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Syntax highlighting CSS -->
+        <link rel="stylesheet" href="/stylesheets/syntax.css">
+
+        <!-- Google Webfont CSS -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Inconsolata&subset=latin,latin-ext'>
+
+        <!-- SymbolSet CSS -->
+        <link rel="stylesheet" href="/stylesheets/ss-social.css">
+        <link rel="stylesheet" href="/stylesheets/ss-standard.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/stylesheets/main.css">
+
+        <link rel="shortcut icon" href="/favicon.ico">
+    </head>
+    <body class="post">
+
+      <a class="main" href="/" title="Home">
+  <svg viewBox="0 0 236 236" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <path d="M100.776,87.032 L14.376,0.344 L0.84,13.88 L87.24,100.568 L100.776,87.032 Z M235.848,13.88 L222.312,0.344 L0.84,222.392 L14.376,235.928 L235.848,13.88 Z M235.848,222.392 L149.448,135.704 L135.912,149.24 L222.312,235.928 L235.848,222.392 Z" sketch:type="MSShapeGroup"></path>
+  </svg>
+</a>
+
+
+      <article>
+  <header>
+    <h1>Recover Data from a Mac without Target Disk Mode</h1>
+    <small>
+      <time datetime="2016-03-14 09:17:28 -0500">
+      Posted March 14, 2016 under
+      
+      <em><span class="tag" data-tag="apple"><a href="/tag/apple">apple</a></span>, <span class="tag" data-tag="osx"><a href="/tag/osx">osx</a></span>, and <span class="tag" data-tag="command-line"><a href="/tag/command-line">command-line</a></span></em>
+    </small>
+  </header>
+
+  <p>I was recently trying to pull data off of an iMac for a friend, but didn’t have
+any Macs around with FireWire ports to get at the iMac HD in target disk
+mode<sup><a href="#1">1</a></sup>. This method does require an external hard drive.</p>
+
+<p>Start up your Mac in single-user mode<sup><a href="#2">2</a></sup>, then run the following
+commands<sup><a href="#3">3</a></sup>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Check the filesystem</span>
+<span class="gp">$ </span>/sbin/fsck -y
+
+<span class="c"># Mount the root volume</span>
+<span class="gp">$ </span>mount -uw /
+
+<span class="c"># Create mount destination</span>
+<span class="gp">$ </span>mkdir /Volumes/backup
+
+<span class="c"># Get a list of available drives</span>
+<span class="gp">$ </span>df -h
+
+<span class="c"># Plug in USB backup drive, look for new drive name</span>
+<span class="gp">$ </span>df -h
+
+<span class="c"># Mount the drive with the name you got from last step. Probably looks</span>
+<span class="c"># something like /dev/rdisk2s2. Note the rdisk / disk name difference.</span>
+<span class="gp">$ </span>mount -t hfs /dev/disk2s2 /Volumes/backup
+
+<span class="c"># rsync data to your backup</span>
+<span class="gp">$ </span>rsync -ahz /Users/you/ /Volumes/backup/
+</code></pre>
+</div>
+
+<p><sup><a name="1">1</a></sup>Share files between two computers with target disk mode: <a href="https://support.apple.com/en-us/HT201462">https://support.apple.com/en-us/HT201462</a></p>
+
+<p><sup><a name="2">2</a></sup>How to start up your Mac in single-user or verbose mode: <a href="https://support.apple.com/en-us/HT201573">https://support.apple.com/en-us/HT201573</a></p>
+
+<p><sup><a name="3">3</a></sup>Mount USB Memory Sticks in single user mode: <a href="http://hints.macworld.com/article.php?story=20030714194313542">http://hints.macworld.com/article.php?story=20030714194313542</a></p>
+
+
+</article>
+
+<a href="/">Back to all posts</a>
+
+
+
+      <nav>
+        <a class="ss-icon ss-social ss-twitter" href="http://twitter.com/adamyonk" title="Twitter"></a>
+        <a class="ss-icon ss-social ss-octocat" href="http://github.com/adamyonk" title="GitHub"></a>
+        <a class="ss-key" href="http://keybase.io/adamyonk" title="Keybase"></a>
+        <a class="ss-lock" href="/adam_jahnke.asc" title="PGP Public Key&#10;&#10;Fingerprint:&#10;253B DC3C 94E5 F33A 0A20 F0B3 415C 1FDC 7AEB 2ACE"></a>
+        <a class="ss-icon ss-social ss-rss" href="/atom.xml" title="RSS"></a>
+      </nav>
+    </body>
+</html>

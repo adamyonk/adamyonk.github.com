@@ -80,6 +80,10 @@ table {
 th {
   text-align: left; }
 
+sup,
+sub {
+  line-height: 0; }
+
 a.main {
   border: none;
   display: block;
@@ -164,21 +168,9 @@ header h1 {
   margin-bottom: 0rem; }
 
 .post-li {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex; }
+  margin-bottom: 1em; }
 
 @media (max-width: 480px) {
-  .post-li {
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-bottom: 1em; }
-
-  .post-li__arrow {
-    display: none; }
-
   .post-li__title {
     width: 100%; } }
 .post-li__meta {
@@ -190,6 +182,7 @@ header h1 {
   white-space: nowrap; }
 
 .post-li__title {
+  display: block;
   margin-right: 0.5rem; }
 
 .post-li__tags {

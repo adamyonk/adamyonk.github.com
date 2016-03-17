@@ -3,11 +3,56 @@
   <title>Adam Jahnke</title>
   <link href="/atom.xml" rel="self"/>
   <link href="/"/>
-  <updated>2016-03-12T14:30:22-06:00</updated>
+  <updated>2016-03-17T15:57:15-05:00</updated>
   <id>/</id>
   <author>
     <name>Adam Jahnke</name>
   </author>
+  
+  <entry>
+    <title>Recover Data from a Mac without Target Disk Mode</title>
+    <link href="/2016/03/14/recover-data-from-a-mac-without-target-disk-mode/"/>
+    <updated>2016-03-14T09:17:28-05:00</updated>
+    <id>/2016/03/14/recover-data-from-a-mac-without-target-disk-mode</id>
+    <content type="html">&lt;p&gt;I was recently trying to pull data off of an iMac for a friend, but didn’t have
+any Macs around with FireWire ports to get at the iMac HD in target disk
+mode&lt;sup&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. This method does require an external hard drive.&lt;/p&gt;
+
+&lt;p&gt;Start up your Mac in single-user mode&lt;sup&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, then run the following
+commands&lt;sup&gt;&lt;a href=&quot;#3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Check the filesystem&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;/sbin/fsck -y
+
+&lt;span class=&quot;c&quot;&gt;# Mount the root volume&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mount -uw /
+
+&lt;span class=&quot;c&quot;&gt;# Create mount destination&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkdir /Volumes/backup
+
+&lt;span class=&quot;c&quot;&gt;# Get a list of available drives&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;df -h
+
+&lt;span class=&quot;c&quot;&gt;# Plug in USB backup drive, look for new drive name&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;df -h
+
+&lt;span class=&quot;c&quot;&gt;# Mount the drive with the name you got from last step. Probably looks&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# something like /dev/rdisk2s2. Note the rdisk / disk name difference.&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mount -t hfs /dev/disk2s2 /Volumes/backup
+
+&lt;span class=&quot;c&quot;&gt;# rsync data to your backup&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rsync -ahz /Users/you/ /Volumes/backup/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;sup&gt;&lt;a name=&quot;1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;Share files between two computers with target disk mode: &lt;a href=&quot;https://support.apple.com/en-us/HT201462&quot;&gt;https://support.apple.com/en-us/HT201462&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;sup&gt;&lt;a name=&quot;2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;How to start up your Mac in single-user or verbose mode: &lt;a href=&quot;https://support.apple.com/en-us/HT201573&quot;&gt;https://support.apple.com/en-us/HT201573&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;sup&gt;&lt;a name=&quot;3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;Mount USB Memory Sticks in single user mode: &lt;a href=&quot;http://hints.macworld.com/article.php?story=20030714194313542&quot;&gt;http://hints.macworld.com/article.php?story=20030714194313542&lt;/a&gt;&lt;/p&gt;
+
+</content>
+  </entry>
   
   <entry>
     <title>GitHub Merge Button from CLI</title>
@@ -24,7 +69,7 @@ that happens when I try to do all of that with an outdated master branch.&lt;/p&
 together a script based on the new-to-me &lt;a href=&quot;https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button&quot;&gt;Merge Button API Route&lt;/a&gt;. So, go
 forth and merge with glee, in safety, and without leaving our beloved shell. ❤️&lt;/p&gt;
 
-&lt;p&gt;See &lt;code class=&quot;highlighter-rouge&quot;&gt;git-merge-pr&lt;/code&gt; below or &lt;a href=&quot;https://github.com/adamyonk/dotfiles/commit/2db7d4b82344816bb215eec21c40044e48e59781&quot;&gt;cherry-pick it from my dotfiles&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;See &lt;code class=&quot;highlighter-rouge&quot;&gt;git-merge-pr&lt;/code&gt; below or &lt;a href=&quot;https://github.com/adamyonk/dotfiles/blob/master/bin/git-merge-pr&quot;&gt;grab it from my dotfiles&lt;/a&gt;!&lt;/p&gt;
 
 &lt;h2 id=&quot;git-merge-pr&quot;&gt;git-merge-pr&lt;/h2&gt;
 
@@ -36,10 +81,10 @@ forth and merge with glee, in safety, and without leaving our beloved shell. ❤
 
 &lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#/ Usage:&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#/   git merge-pr [&amp;lt;branch&amp;gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/   git merge-pr [&amp;lt;branch&amp;gt;|&amp;lt;pr&amp;gt;]&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#/ Looks up the most recent pull requst based on the current branch or&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#/ &amp;lt;branch&amp;gt;, and tries to merge it using the merge API (like the Merge Button).&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/ Looks up the most recent pull requst based on &amp;lt;branch&amp;gt;, &amp;lt;pr&amp;gt;, or the current&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#/ branch, and tries to merge it using the merge API (like the Merge Button).&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#/&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#/ Requirements:&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#/   - $GITHUB_TOKEN environment variable&lt;/span&gt;
@@ -68,15 +113,19 @@ if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; -z &lt;span clas
 &lt;span class=&quot;nv&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_ .*__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_.* __&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git symbolic-ref HEAD | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_refs/heads/__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-
 &lt;span class=&quot;nv&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://api.github.com/repos/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$repo&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/pulls&quot;&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Authorization: token &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Get the first matching pull request for $branch&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# https://developer.github.com/v3/pulls/#list-pull-requests&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl --silent --header &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$auth&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$endpoint&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?head=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$branch&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | jq &lt;span class=&quot;s1&quot;&gt;&#39;.[0].number&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Check if $1 is actually a pull request number&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | grep --silent &lt;span class=&quot;s1&quot;&gt;&#39;^\d*$&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Get the first matching pull request for $branch&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# https://developer.github.com/v3/pulls/#list-pull-requests&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl --silent --header &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$auth&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$endpoint&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?head=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$branch&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | jq &lt;span class=&quot;s1&quot;&gt;&#39;.[0].number&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Try to merge&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button&lt;/span&gt;
