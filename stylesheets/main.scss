@@ -157,10 +157,11 @@ nav a {
 }
 nav a:hover { border: none; }
 nav a.ss-twitter:hover { color: hsl(192,98%,57%); }
-nav a.ss-octocat:hover { color: hsl(210,53%,51%); }
+nav a.ss-github:hover { color: hsl(210,53%,51%); }
+nav a.ss-reddit:hover { color: hsl(210,75%,89%); }
 nav a.ss-key:hover { color: hsl(15,98%,58%); }
+nav a.ss-lock:hover { color: hsl(175,59%,40%); }
 nav a.ss-rss:hover { color: hsl(30,98%,57%); }
-nav a.ss-lock:hover { color: hsl(200,89%,46%); }
 
 article { margin-bottom: 3rem; }
 article img { max-width: 100%; }
