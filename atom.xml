@@ -3,7 +3,7 @@
   <title>Adam Jahnke</title>
   <link href="/atom.xml" rel="self"/>
   <link href="/"/>
-  <updated>2016-03-27T11:26:15-05:00</updated>
+  <updated>2016-03-27T12:04:35-05:00</updated>
   <id>/</id>
   <author>
     <name>Adam Jahnke</name>
@@ -117,7 +117,7 @@ if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; -z &lt;span clas
 &lt;span class=&quot;nv&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Authorization: token &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Check if $1 is actually a pull request number&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | grep --silent &lt;span class=&quot;s1&quot;&gt;&#39;^\d*$&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; ! -z &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | grep --silent &lt;span class=&quot;s1&quot;&gt;&#39;^\d*$&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
   &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
   &lt;span class=&quot;c&quot;&gt;# Get the first matching pull request for $branch&lt;/span&gt;

@@ -130,17 +130,20 @@ nav a:hover {
 nav a.ss-twitter:hover {
   color: #26d2fd; }
 
-nav a.ss-octocat:hover {
+nav a.ss-github:hover {
   color: #4082c4; }
+
+nav a.ss-reddit:hover {
+  color: #cee3f8; }
 
 nav a.ss-key:hover {
   color: #fd5f2b; }
 
+nav a.ss-lock:hover {
+  color: #2aa298; }
+
 nav a.ss-rss:hover {
   color: #fd9126; }
-
-nav a.ss-lock:hover {
-  color: #0d98de; }
 
 article {
   margin-bottom: 3rem; }
