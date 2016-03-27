@@ -63,13 +63,13 @@ fi
 remote_url=$(git config --get remote.origin.url)
 owner_repo=$(echo $remote_url | sed -En 's_^(git@|https://)?github.com(:|/)(.*)/(.*)(.git)?_\3 \4_p')
 owner=$(echo $owner_repo | sed 's_ .*__')
-repo=$(echo $owner_repo | sed 's_.* __')
+repo=$(echo $owner_repo | sed 's_.* __; s_.git$__')
 branch=${1:-"$(git symbolic-ref HEAD | sed 's_refs/heads/__')"}
 endpoint="https://api.github.com/repos/$owner/$repo/pulls"
 auth="Authorization: token $GITHUB_TOKEN"
 
 # Check if $1 is actually a pull request number
-if $(echo $1 | grep --silent '^\d*$'); then
+if $(test ! -z $1 && echo $1 | grep --silent '^\d*$'); then
   pull=$1
 else
   # Get the first matching pull request for $branch

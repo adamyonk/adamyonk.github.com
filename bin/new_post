@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
 dir=$(dirname $0)
-cd ${dir//script/}
-read title -p "Enter your post title and press <enter>: "
+cd ${dir//bin/}
+read -p "Enter your post title and press <enter>: " title
 file=$(awk '{print tolower($0)}' <<< "_posts/$(date '+%Y-%m-%d')-${title// /-}.md")
-echo "---\nlayout: post\ntitle: $title\ndate: $(date '+%Y-%m-%d %H:%M:%S %z')\ntags: \ntype: \n---\n\n" > $file
-open $file
+echo "---\nlayout: post\ntitle: $title\ndate: $(date '+%Y-%m-%d %H:%M:%S %z')\ntags: \n---\n\n" > $file
+echo $file
