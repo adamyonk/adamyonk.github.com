@@ -3,7 +3,7 @@
   <title>Adam Jahnke</title>
   <link href="/atom.xml" rel="self"/>
   <link href="/"/>
-  <updated>2016-03-17T15:57:15-05:00</updated>
+  <updated>2016-03-27T11:26:15-05:00</updated>
   <id>/</id>
   <author>
     <name>Adam Jahnke</name>
@@ -111,7 +111,7 @@ if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; -z &lt;span clas
 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git config --get remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;owner_repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$remote_url&lt;/span&gt; | sed -En &lt;span class=&quot;s1&quot;&gt;&#39;s_^(git@|https://)?github.com(:|/)(.*)/(.*)(.git)?_\3 \4_p&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_ .*__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_.* __&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$owner_repo&lt;/span&gt; | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_.* __; s_.git$__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git symbolic-ref HEAD | sed &lt;span class=&quot;s1&quot;&gt;&#39;s_refs/heads/__&#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://api.github.com/repos/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$owner&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$repo&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/pulls&quot;&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Authorization: token &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
