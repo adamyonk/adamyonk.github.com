@@ -99,7 +99,7 @@ if</span> <span class="o">[[</span> -z <span class="s2">"</span><span class="k">
 <span class="nv">auth</span><span class="o">=</span><span class="s2">"Authorization: token </span><span class="nv">$GITHUB_TOKEN</span><span class="s2">"</span>
 
 <span class="c"># Check if $1 is actually a pull request number</span>
-<span class="k">if</span> <span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1</span> | grep --silent <span class="s1">'^\d*$'</span><span class="k">)</span>; <span class="k">then
+<span class="k">if</span> <span class="k">$(</span><span class="nb">test</span> ! -z <span class="nv">$1</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$1</span> | grep --silent <span class="s1">'^\d*$'</span><span class="k">)</span>; <span class="k">then
   </span><span class="nv">pull</span><span class="o">=</span><span class="nv">$1</span>
 <span class="k">else</span>
   <span class="c"># Get the first matching pull request for $branch</span>
